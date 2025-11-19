@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Análise de Consórcios v2</title>
+    <!-- Carrega o Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração customizada do Tailwind para usar a fonte Inter -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-blue': '#003366',
+                        'secondary-blue': '#e7f3ff',
+                        'highlight-green': '#28a745',
+                        'highlight-red': '#dc3545',
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Define a cor de fundo e fonte */
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-primary-blue border-b-4 border-secondary-blue pb-3 mb-6">
+            Dashboard Interativo v2: Análise com Novas Propostas
+        </h1>
+
+        <!-- Storytelling Section -->
+        <div class="storytelling bg-secondary-blue border-l-8 border-primary-blue p-4 md:p-6 my-6 rounded-lg">
+            <h3 class="text-xl font-bold text-primary-blue mb-2">O Storytelling da Decisão (Atualizado)</h3>
+            <p class="text-gray-700">Com a chegada de novas cotas, nossa análise foi reiniciada. O dilema do lance embutido continua, mas uma nova protagonista surge: a <strong>Nova Opção F</strong>.</p>
+            <p class="text-gray-700 mt-2">Ela oferece o maior crédito livre (R$ 105.581) sem usar o atalho custoso do lance embutido, mantendo um custo efetivo baixíssimo de 13,8%. Embora tenha um prazo maior, ela se posiciona como a escolha ideal para quem busca o máximo poder de compra com eficiência financeira. A Proposta A/G continua excelente para um prazo mais curto.</p>
+        </div>
+
+        <!-- Recommended Proposal Section -->
+        <div class="recommended border-4 border-highlight-green bg-green-50 p-6 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-highlight-green mb-4">🏆 Proposta Recomendada: Nova Opção F</h2>
+            <p class="text-lg font-medium text-gray-800 mb-6"><strong>Grupo 1424 | Carta de R$ 105.581 | Sem Lance Embutido</strong></p>
+            <div class="metrics flex flex-wrap justify-around text-center gap-4">
+                <div class="metric bg-white p-4 rounded-lg shadow-md flex-1 min-w-[180px]">
+                    <p class="text-3xl font-extrabold text-primary-blue">R$ 105.581</p>
+                    <span class="text-sm text-gray-600 font-semibold">🥇 Crédito Livre</span>
+                </div>
+                <div class="metric bg-white p-4 rounded-lg shadow-md flex-1 min-w-[180px]">
+                    <p class="text-3xl font-extrabold text-primary-blue">13,80%</p>
+                    <span class="text-sm text-gray-600 font-semibold">🥈 Custo Efetivo</span>
+                </div>
+                <div class="metric bg-white p-4 rounded-lg shadow-md flex-1 min-w-[180px]">
+                    <p class="text-3xl font-extrabold text-primary-blue">R$ 740,81</p>
+                    <span class="text-sm text-gray-600 font-semibold">📉 Parcela Pós</span>
+                </div>
+                <div class="metric bg-white p-4 rounded-lg shadow-md flex-1 min-w-[180px]">
+                    <p class="text-3xl font-extrabold text-primary-blue">73 meses</p>
+                    <span class="text-sm text-gray-600 font-semibold">🗓️ Prazo do Grupo</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Grid -->
+        <h2 class="text-2xl font-bold text-primary-blue border-b-2 border-secondary-blue pb-2 mt-8 mb-4">Gráficos Comparativos Dinâmicos</h2>
+        <p class="text-gray-600 mb-6">Passe o mouse sobre as barras para ver os valores. As novas opções estão destacadas.</p>
+
+        <div class="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Crédito Livre (Poder de Compra Real)</h3>
+                <canvas id="creditChart" class="w-full h-80"></canvas>
+            </div>
+            <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Custo Efetivo do Crédito (%)</h3>
+                <canvas id="costChart" class="w-full h-80"></canvas>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <h2 class="text-2xl font-bold text-primary-blue border-b-2 border-secondary-blue pb-2 mt-12 mb-4">Tabela Comparativa Completa</h2>
+        <div class="overflow-x-auto rounded-lg shadow-lg">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">ID</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Crédito Livre</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Lance Embutido</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Recurso Próprio</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Parcela Pós</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Custo Total</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Custo Efetivo*</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    <tr class="bg-green-100 font-bold">
+                        <td class="px-4 py-3 whitespace-nowrap">F <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full ml-2">NOVA</span></td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 105.581</td>
+                        <td class="px-4 py-3 whitespace-nowrap">0%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 65.373</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 740,81</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 119.306</td>
+                        <td class="px-4 py-3 whitespace-nowrap">13,80%</td>
+                    </tr>
+                    <tr class="bg-blue-50">
+                        <td class="px-4 py-3 whitespace-nowrap">G (antiga A) <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full ml-2">NOVA</span></td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 102.934</td>
+                        <td class="px-4 py-3 whitespace-nowrap">0%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 62.465</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 999,22</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 116.315</td>
+                        <td class="px-4 py-3 whitespace-nowrap">13,00%</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-3 whitespace-nowrap">B</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 100.954</td>
+                        <td class="px-4 py-3 whitespace-nowrap">25%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 48.034</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 1.306,05</td>
+                        <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">R$ 152.104</td>
+                        <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-3 whitespace-nowrap">C</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 60.823</td>
+                        <td class="px-4 py-3 whitespace-nowrap">25%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 31.354</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 565,55</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 91.640</td>
+                        <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-3 whitespace-nowrap">D</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 100.954</td>
+                        <td class="px-4 py-3 whitespace-nowrap">25%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 52.041</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 937,38</td>
+                        <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">R$ 152.104</td>
+                        <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
+                    </tr>
+                    <tr>
+                        <td class="px-4 py-3 whitespace-nowrap">E</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 81.098</td>
+                        <td class="px-4 py-3 whitespace-nowrap">0%</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 51.628</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 565,55</td>
+                        <td class="px-4 py-3 whitespace-nowrap">R$ 91.640</td>
+                        <td class="px-4 py-3 whitespace-nowrap">13,00%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <small class="block mt-4 text-gray-600 italic">*Custo Efetivo considera Taxa de Adm (10,5% ou 9,5%) + Fundo de Reserva (3,5%) sobre o crédito livre.</small>
+    </div>
+
+<script>
+    // --- Data and Chart.js Logic ---
+    const data = {
+        labels: ['F (Nova)', 'G (Nova)', 'B', 'C', 'D', 'E'],
+        creditData: [105581, 102934, 100954, 60823, 100954, 81098],
+        costData: [13.80, 13.00, 17.33, 17.33, 17.33, 13.00],
+        isEmbutido: [false, false, true, true, true, false],
+        isNew: [true, true, false, false, false, false]
+    };
+
+    const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+
+    // Function to set colors based on the proposal type
+    const getBar colors = (isEmbutido, isNew) => {
+        // High Cost (Embutido) color palette
+        if (isEmbutido) {
+            return isNew ? 'rgba(239, 68, 68, 0.8)' : 'rgba(252, 165, 165, 0.8)'; // Red/Pink tones
+        }
+        // Low Cost (Not Embutido) color palette
+        return isNew ? 'rgba(52, 211, 153, 0.8)' : 'rgba(110, 231, 183, 0.8)'; // Green/Teal tones
+    };
+
+    // Chart 1: Crédito Livre
+    const creditCtx = document.getElementById('creditChart').getContext('2d');
+    new Chart(creditCtx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: 'Crédito Livre (R$)',
+                data: data.creditData,
+                backgroundColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i])),
+                borderColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')), // Solid border
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: { callbacks: { label: (context) => `Crédito: ${formatCurrency(context.raw)}` } }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Valor (R$)' },
+                    ticks: { callback: (value) => formatCurrency(value) }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // Chart 2: Custo Efetivo
+    const costCtx = document.getElementById('costChart').getContext('2d');
+    new Chart(costCtx, {
+        type: 'bar',
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: 'Custo Efetivo (%)',
+                data: data.costData,
+                backgroundColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i])),
+                borderColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: { callbacks: { label: (context) => `Custo: ${context.raw.toFixed(2)}%` } }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Porcentagem (%)' },
+                    ticks: { callback: (value) => `${value}%` }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
