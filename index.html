@@ -35,9 +35,10 @@
     </style>
 
 </head>
-<body class="bg-gray-100 p-4 md:p-8">
+<body class="bg-gray-100 p-0 md:p-4">
 
-    <div class="max-w-6xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl">
+    <!-- TIREI o max-w-6xl e deixei w-full -->
+    <div class="w-full mx-auto bg-white p-4 md:p-10 shadow-2xl">
 
         <h1 class="text-3xl md:text-4xl font-extrabold text-primary-blue border-b-4 border-secondary-blue pb-3 mb-6">
             Vanderson REV13 _ Dashboard Interativo v2: Análise com Novas Propostas
@@ -78,20 +79,21 @@
         <h2 class="text-2xl font-bold text-primary-blue border-b-2 border-secondary-blue pb-2 mt-8 mb-4">Gráficos Comparativos Dinâmicos</h2>
         <p class="text-gray-600 mb-6">Passe o mouse sobre as barras para ver os valores. As novas opções estão destacadas.</p>
 
-        <div class="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- grid só com 1 coluna para cada gráfico ocupar 100% -->
+        <div class="charts-grid grid grid-cols-1 gap-8">
 
             <!-- Chart 1 Container -->
-            <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
+            <div class="chart-container bg-gray-50 p-4 md:p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Crédito Livre (Poder de Compra Real)</h3>
-                <div class="relative h-80">
+                <div class="relative h-80 w-full">
                     <canvas id="creditChart"></canvas>
                 </div>
             </div>
 
             <!-- Chart 2 Container -->
-            <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
+            <div class="chart-container bg-gray-50 p-4 md:p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Custo Efetivo do Crédito (%)</h3>
-                <div class="relative h-80">
+                <div class="relative h-80 w-full">
                     <canvas id="costChart"></canvas>
                 </div>
             </div>
@@ -188,8 +190,6 @@
     </div>
 
 <script>
-
-    // Dados
     const data = {
         labels: ['F (Nova)', 'G (Nova)', 'B', 'C', 'D', 'E'],
         creditData: [105581, 102934, 100954, 60823, 100954, 81098],
@@ -201,7 +201,6 @@
     const formatCurrency = (value) =>
         new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
-    // Cores
     const getBarcolors = (isEmbutido, isNew) => {
         if (isEmbutido) {
             return isNew ? 'rgba(239, 68, 68, 0.8)' : 'rgba(252, 165, 165, 0.8)';
@@ -209,7 +208,7 @@
         return isNew ? 'rgba(52, 211, 153, 0.8)' : 'rgba(110, 231, 183, 0.8)';
     };
 
-    // --- Chart 1: Crédito Livre ---
+    // Chart 1
     const creditCtx = document.getElementById('creditChart').getContext('2d');
     new Chart(creditCtx, {
         type: 'bar',
@@ -244,7 +243,7 @@
         }
     });
 
-    // --- Chart 2: Custo Efetivo ---
+    // Chart 2
     const costCtx = document.getElementById('costChart').getContext('2d');
     new Chart(costCtx, {
         type: 'bar',
@@ -278,8 +277,8 @@
             }
         }
     });
-
 </script>
 
 </body>
 </html>
+
