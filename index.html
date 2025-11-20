@@ -172,7 +172,7 @@
     const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
     // Function to set colors based on the proposal type
-    const getBar colors = (isEmbutido, isNew) => {
+    const getBarcolors = (isEmbutido, isNew) => {
         // High Cost (Embutido) color palette
         if (isEmbutido) {
             return isNew ? 'rgba(239, 68, 68, 0.8)' : 'rgba(252, 165, 165, 0.8)'; // Red/Pink tones
@@ -190,8 +190,8 @@
             datasets: [{
                 label: 'Crédito Livre (R$)',
                 data: data.creditData,
-                backgroundColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i])),
-                borderColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')), // Solid border
+                backgroundColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i])),
+                borderColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')), // Solid border
                 borderWidth: 1
             }]
         },
@@ -223,8 +223,8 @@
             datasets: [{
                 label: 'Custo Efetivo (%)',
                 data: data.costData,
-                backgroundColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i])),
-                borderColor: data.labels.map((_, i) => getBar colors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')),
+                backgroundColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i])),
+                borderColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')),
                 borderWidth: 1
             }]
         },
