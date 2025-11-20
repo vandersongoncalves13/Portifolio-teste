@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vanderson _ Dashboard de Análise de Consórcios v2</title>
-    <!-- Carrega o Tailwind CSS CDN -->
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuração customizada do Tailwind para usar a fonte Inter -->
+
+    <!-- Tailwind Custom Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -24,15 +26,19 @@
             }
         }
     </script>
+
+    <!-- Chart JS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
-        /* Define a cor de fundo e fonte */
         body { font-family: 'Inter', sans-serif; }
     </style>
+
 </head>
 <body class="bg-gray-100 p-4 md:p-8">
 
     <div class="max-w-6xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-2xl">
+
         <h1 class="text-3xl md:text-4xl font-extrabold text-primary-blue border-b-4 border-secondary-blue pb-3 mb-6">
             Vanderson REV13 _ Dashboard Interativo v2: Análise com Novas Propostas
         </h1>
@@ -73,34 +79,44 @@
         <p class="text-gray-600 mb-6">Passe o mouse sobre as barras para ver os valores. As novas opções estão destacadas.</p>
 
         <div class="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Chart 1 Container -->
             <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Crédito Livre (Poder de Compra Real)</h3>
                 <div class="relative h-80">
-    <canvas id="creditChart"></canvas>
+                    <canvas id="creditChart"></canvas>
+                </div>
             </div>
+
+            <!-- Chart 2 Container -->
             <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Custo Efetivo do Crédito (%)</h3>
                 <div class="relative h-80">
-    <canvas id="costChart"></canvas>
+                    <canvas id="costChart"></canvas>
+                </div>
             </div>
+
         </div>
 
         <!-- Comparison Table -->
         <h2 class="text-2xl font-bold text-primary-blue border-b-2 border-secondary-blue pb-2 mt-12 mb-4">Tabela Comparativa Completa</h2>
+
         <div class="overflow-x-auto rounded-lg shadow-lg">
             <table class="min-w-full bg-white">
                 <thead class="bg-gray-200">
                     <tr>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">ID</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Crédito Livre</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Lance Embutido</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Recurso Próprio</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Parcela Pós</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Custo Total</th>
-                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase tracking-wider">Custo Efetivo*</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">ID</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Crédito Livre</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Lance Embutido</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Recurso Próprio</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Parcela Pós</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Custo Total</th>
+                        <th class="px-4 py-3 text-left text-sm font-semibold text-primary-blue uppercase">Custo Efetivo*</th>
                     </tr>
                 </thead>
+
                 <tbody class="divide-y divide-gray-200">
+
                     <tr class="bg-green-100 font-bold">
                         <td class="px-4 py-3 whitespace-nowrap">F <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full ml-2">NOVA</span></td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 105.581</td>
@@ -110,6 +126,7 @@
                         <td class="px-4 py-3 whitespace-nowrap">R$ 119.306</td>
                         <td class="px-4 py-3 whitespace-nowrap">13,80%</td>
                     </tr>
+
                     <tr class="bg-blue-50">
                         <td class="px-4 py-3 whitespace-nowrap">G (antiga A) <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-0.5 rounded-full ml-2">NOVA</span></td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 102.934</td>
@@ -119,6 +136,7 @@
                         <td class="px-4 py-3 whitespace-nowrap">R$ 116.315</td>
                         <td class="px-4 py-3 whitespace-nowrap">13,00%</td>
                     </tr>
+
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap">B</td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 100.954</td>
@@ -128,6 +146,7 @@
                         <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">R$ 152.104</td>
                         <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
                     </tr>
+
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap">C</td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 60.823</td>
@@ -137,6 +156,7 @@
                         <td class="px-4 py-3 whitespace-nowrap">R$ 91.640</td>
                         <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
                     </tr>
+
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap">D</td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 100.954</td>
@@ -146,6 +166,7 @@
                         <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">R$ 152.104</td>
                         <td class="px-4 py-3 whitespace-nowrap bg-red-100 font-semibold">17,33%</td>
                     </tr>
+
                     <tr>
                         <td class="px-4 py-3 whitespace-nowrap">E</td>
                         <td class="px-4 py-3 whitespace-nowrap">R$ 81.098</td>
@@ -155,14 +176,20 @@
                         <td class="px-4 py-3 whitespace-nowrap">R$ 91.640</td>
                         <td class="px-4 py-3 whitespace-nowrap">13,00%</td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
-        <small class="block mt-4 text-gray-600 italic">*Custo Efetivo considera Taxa de Adm (10,5% ou 9,5%) + Fundo de Reserva (3,5%) sobre o crédito livre.</small>
+
+        <small class="block mt-4 text-gray-600 italic">
+            *Custo Efetivo considera Taxa de Adm (10,5% ou 9,5%) + Fundo de Reserva (3,5%) sobre o crédito livre.
+        </small>
+
     </div>
 
 <script>
-    // --- Data and Chart.js Logic ---
+
+    // Dados
     const data = {
         labels: ['F (Nova)', 'G (Nova)', 'B', 'C', 'D', 'E'],
         creditData: [105581, 102934, 100954, 60823, 100954, 81098],
@@ -171,19 +198,18 @@
         isNew: [true, true, false, false, false, false]
     };
 
-    const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    const formatCurrency = (value) =>
+        new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
-    // Function to set colors based on the proposal type
+    // Cores
     const getBarcolors = (isEmbutido, isNew) => {
-        // High Cost (Embutido) color palette
         if (isEmbutido) {
-            return isNew ? 'rgba(239, 68, 68, 0.8)' : 'rgba(252, 165, 165, 0.8)'; // Red/Pink tones
+            return isNew ? 'rgba(239, 68, 68, 0.8)' : 'rgba(252, 165, 165, 0.8)';
         }
-        // Low Cost (Not Embutido) color palette
-        return isNew ? 'rgba(52, 211, 153, 0.8)' : 'rgba(110, 231, 183, 0.8)'; // Green/Teal tones
+        return isNew ? 'rgba(52, 211, 153, 0.8)' : 'rgba(110, 231, 183, 0.8)';
     };
 
-    // Chart 1: Crédito Livre
+    // --- Chart 1: Crédito Livre ---
     const creditCtx = document.getElementById('creditChart').getContext('2d');
     new Chart(creditCtx, {
         type: 'bar',
@@ -193,30 +219,32 @@
                 label: 'Crédito Livre (R$)',
                 data: data.creditData,
                 backgroundColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i])),
-                borderColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')), // Solid border
+                borderColor: data.labels.map((_, i) => getBarcolors(data.isEmbutido[i], data.isNew[i]).replace('0.8', '1')),
                 borderWidth: 1
             }]
         },
         options: {
-    responsive: true,
-    maintainAspectRatio: true, // ou simplesmente remova essa linha (true é o padrão)
+            responsive: true,
+            maintainAspectRatio: true,
             plugins: {
-                tooltip: { callbacks: { label: (context) => `Crédito: ${formatCurrency(context.raw)}` } }
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `Crédito: ${formatCurrency(ctx.raw)}`
+                    }
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Valor (R$)' },
-                    ticks: { callback: (value) => formatCurrency(value) }
-                },
-                x: {
-                    grid: { display: false }
+                    ticks: {
+                        callback: (v) => formatCurrency(v)
+                    }
                 }
             }
         }
     });
 
-    // Chart 2: Custo Efetivo
+    // --- Chart 2: Custo Efetivo ---
     const costCtx = document.getElementById('costChart').getContext('2d');
     new Chart(costCtx, {
         type: 'bar',
@@ -232,22 +260,25 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
             plugins: {
-                tooltip: { callbacks: { label: (context) => `Custo: ${context.raw.toFixed(2)}%` } }
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `Custo: ${ctx.raw.toFixed(2)}%`
+                    }
+                }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: 'Porcentagem (%)' },
-                    ticks: { callback: (value) => `${value}%` }
-                },
-                x: {
-                    grid: { display: false }
+                    ticks: {
+                        callback: (v) => `${v}%`
+                    }
                 }
             }
         }
     });
+
 </script>
 
 </body>
