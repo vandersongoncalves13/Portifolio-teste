@@ -75,11 +75,13 @@
         <div class="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Crédito Livre (Poder de Compra Real)</h3>
-                <canvas id="creditChart" class="w-full h-80"></canvas>
+                <div class="relative h-80">
+    <canvas id="creditChart"></canvas>
             </div>
             <div class="chart-container bg-gray-50 p-6 rounded-xl shadow-xl">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Custo Efetivo do Crédito (%)</h3>
-                <canvas id="costChart" class="w-full h-80"></canvas>
+                <div class="relative h-80">
+    <canvas id="costChart"></canvas>
             </div>
         </div>
 
@@ -196,8 +198,8 @@
             }]
         },
         options: {
-            responsive: true,
-            maintainAspectRatio: false,
+    responsive: true,
+    maintainAspectRatio: true, // ou simplesmente remova essa linha (true é o padrão)
             plugins: {
                 tooltip: { callbacks: { label: (context) => `Crédito: ${formatCurrency(context.raw)}` } }
             },
